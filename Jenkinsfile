@@ -8,11 +8,6 @@ pipeline {
             build 'qa.build.app'
           }
         }
-        stage('') {
-          steps {
-            build 'prod.compile.app'
-          }
-        }
       }
     }
     stage('TEST') {
@@ -22,11 +17,6 @@ pipeline {
             build 'qa.test.app'
           }
         }
-        stage('') {
-          steps {
-            build 'prod.test.app'
-          }
-        }
       }
     }
     stage('DEPLOY') {
@@ -34,11 +24,6 @@ pipeline {
         stage('DEPLOY') {
           steps {
             build 'qa.deploy.app'
-          }
-        }
-        stage('') {
-          steps {
-            build 'prod.deploy.app'
           }
         }
       }
