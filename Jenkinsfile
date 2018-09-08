@@ -21,6 +21,27 @@ pipeline {
         echo 'Deploying....'
         build 'QA/qa.deploy.app'
       }
+      
+      post {
+        aborted {
+          echo "Stage 'DEPLOY' WAS ABORTED"
+        }
+        always {
+          echo "Stage 'DEPLOY' finished"
+        }
+        changed {
+          echo "Stage 'DEPLOY' HAVE CHANGED"
+        }
+        failure {
+          echo "Stage 'DEPLOY' FAILED"
+        }
+        success {
+          echo "Stage 'DEPLOY' was Successful"
+        }
+        unstable {
+          echo "Stage 'DEPLOY' is Unstable"
+        }
+      }
     }
   }
   environment {
