@@ -3,7 +3,7 @@ pipeline {
   
   options {
     // using the Timestamper plugin we can add timestamps to the console log
-    timestamps()
+    //timestamps() <--- BUG: https://issues.jenkins-ci.org/browse/JENKINS-48556
   }
   
   environment {
