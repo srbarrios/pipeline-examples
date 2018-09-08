@@ -1,7 +1,17 @@
 pipeline {
   agent any
+  
+  options {
+    // using the Timestamper plugin we can add timestamps to the console log
+    timestamps()
+  }
+  
+  environment {
+    env = 'qa'
+  }
+  
   stages {
-    stage('COMPILE') {
+    stage('Build') {
       steps {
         echo 'Building..'
         build 'QA/qa.build.app'
@@ -10,13 +20,13 @@ pipeline {
         }
       }
     }
-    stage('TEST') {
+    stage('Test') {
       steps {
         echo 'Testing..'
         build 'QA/qa.test.app'
       }
     }
-    stage('DEPLOY') {
+    stage('Deploy') {
       when {
         // skip this stage unless on Master branch
         branch "master"
@@ -29,27 +39,34 @@ pipeline {
       
       post {
         aborted {
-          echo "Stage 'DEPLOY' WAS ABORTED"
+          echo "Stage 'Deploy' WAS ABORTED"
         }
         always {
-          echo "Stage 'DEPLOY' finished"
+          echo "Stage 'Deploy' finished"
         }
         changed {
-          echo "Stage 'DEPLOY' HAVE CHANGED"
+          echo "Stage 'Deploy' HAVE CHANGED"
         }
         failure {
-          echo "Stage 'DEPLOY' FAILED"
+          echo "Stage 'Deploy' FAILED"
         }
         success {
-          echo "Stage 'DEPLOY' was Successful"
+          echo "Stage 'Deploy' was Successful"
         }
         unstable {
-          echo "Stage 'DEPLOY' is Unstable"
+          echo "Stage 'Deploy' is Unstable"
         }
       }
     }
   }
-  environment {
-    env = 'qa'
+  
+  post {
+    failure {
+      // notify users when the Pipeline fails
+      mail to: 'oscar.barrios@gmail.com',
+          subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+          body: "Something is wrong with ${env.BUILD_URL}"
+    }
   }
+  
 }
