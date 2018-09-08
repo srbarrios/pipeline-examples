@@ -2,30 +2,25 @@ pipeline {
   agent any
   stages {
     stage('COMPILE') {
-      parallel {
-        stage('COMPILE') {
-          steps {
-            build 'qa.build.app'
-          }
-        }
+      steps {
+        echo 'Building..'
+        build 'QA/qa.build.app'
+      }
+      ansiColor('xterm') {
+              // Just some echoes to show the ANSI color.
+              stage "\u001B[31mI'm Red\u001B[0m Now not"
       }
     }
     stage('TEST') {
-      parallel {
-        stage('TEST') {
-          steps {
-            build 'qa.test.app'
-          }
-        }
+      steps {
+        echo 'Testing..'
+        build 'QA/qa.test.app'
       }
     }
     stage('DEPLOY') {
-      parallel {
-        stage('DEPLOY') {
-          steps {
-            build 'qa.deploy.app'
-          }
-        }
+      steps {
+        echo 'Deploying....'
+        build 'QA/qa.deploy.app'
       }
     }
   }
