@@ -34,6 +34,7 @@ pipeline {
         build 'QA/qa.deploy.app'
       }
       
+      /*
       post {
         aborted {
           echo "Stage 'Deploy' WAS ABORTED"
@@ -53,6 +54,13 @@ pipeline {
         unstable {
           echo "Stage 'Deploy' is Unstable"
         }
+      }
+      */
+    }
+    
+    stage('Doc') {
+      steps {
+        echo 'Generate Doc...'
       }
     }
   }
