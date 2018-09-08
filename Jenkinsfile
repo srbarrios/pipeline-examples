@@ -1,10 +1,10 @@
 pipeline {
   agent any
   
-  options {
+  //options {
     // using the Timestamper plugin we can add timestamps to the console log
     //timestamps() <--- BUG: https://issues.jenkins-ci.org/browse/JENKINS-48556
-  }
+  //}
   
   environment {
     env = 'qa'
