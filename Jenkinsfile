@@ -13,11 +13,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Building..'
+        echo '\u001B[31mBuilding...'
         build 'QA/qa.build.app'
-        ansiColor('xterm') {
-              echo "\u001B[31mI'm Red\u001B[0m Now not"
-        }
       }
     }
     stage('Test') {
