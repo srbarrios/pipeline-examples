@@ -17,6 +17,11 @@ pipeline {
       }
     }
     stage('DEPLOY') {
+      when {
+        // skip this stage unless on Master branch
+        branch "master"
+      }
+      
       steps {
         echo 'Deploying....'
         build 'QA/qa.deploy.app'
